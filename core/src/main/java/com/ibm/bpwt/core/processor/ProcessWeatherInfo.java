@@ -3,33 +3,34 @@ package com.ibm.bpwt.core.processor;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
+
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.ibm.bpwt.core.servlets.SearchWeatherReportServlet;
+import org.json.JSONException;
+import org.json.JSONObject;
+import com.ibm.bpwt.core.utils.Constants;
 
 public class ProcessWeatherInfo {
 	
+	private static final Logger LOG = LoggerFactory.getLogger(ProcessWeatherInfo.class);
+	
 	 public JSONObject getWeatherData(String loc, String days) {
-		String inline = "",url="";
+		String jsonData = "",url="";
 		JSONObject obj = null;
-		//private static final Logger LOG = LoggerFactory.getLogger(SearchWeatherReportServlet.class);
+		
 			try {
 				// create HTTP Client
 				HttpClient httpClient = HttpClientBuilder.create().build();
-				url="http://api.apixu.com/v1/forecast.json?key=184b8f12dbf04553aca125012191203&q="+loc+"&days="+days;
+			
+				url=Constants.WT_URL+"?key="+Constants.WT_API_KEY+"&"+Constants.LOC+"="+loc+"&days="+days;
 		
 				// Create new getRequest with below mentioned URL
-			//	Logger.info("Setting up the url in bpwt "+url);
 				HttpGet getRequest= new HttpGet(url);
 				
 				getRequest.addHeader("Content-Type", "application/json;charset=UTF-8");
@@ -45,20 +46,19 @@ public class ProcessWeatherInfo {
 				String output;
 				while ((output = br.readLine()) != null) {
 
-					inline += output;
-					//LOG.info("weather data "+inline);
+					jsonData += output;
+					
 				}
 
-				obj = new JSONObject(inline);
+				obj = new JSONObject(jsonData);
 
 			} catch (ClientProtocolException e) {
-				e.printStackTrace();
+				LOG.error("ClientProtocolException occured in method getWeatherData()");
 
 			} catch (IOException e) {
-				e.printStackTrace();
+				LOG.error("IOException occured in method getWeatherData()");
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOG.error("JSONException occured in method getWeatherData()");
 			}
 			return obj;
 	 

@@ -1,4 +1,3 @@
-/* Copyright BP - Weather Tracker Application. All rights reserved. */
 package com.ibm.bpwt.core.utils;
 
 /**
@@ -11,30 +10,20 @@ public final class Constants {
     }
 
     /** Initializing the Weather API URL */
-    public static final String BPWT_URL = "http://api.openweathermap.org/data/2.5/forecast";
+    public static final String WT_URL = "http://api.apixu.com/v1/forecast.json";
 
     /** Initializing the API Key */
-    public static final String BPWT_API_KEY = "697957e6cfc5e6095392fcde33b1e348";
+    public static final String WT_API_KEY = "184b8f12dbf04553aca125012191203";
 
     /** The Constant LOC for location information. */
-    public static final String LOC = "loc";
+    public static final String LOC = "q";
 
-    /** The Constant JSON Property for DATE */
-    public static final String JSON_PROP_DATE = "dt_txt";
+    /** The Constant JSON Property for number of days */
+    public static final String DAYS = "days";
 
-    /** The Constant JSON Property for JSON Main Content Node */
-    public static final String JSON_PROP_MAIN = "main";
+    /** The Constant for request header property */
+    public static final String CONTENT_TYPE = "Content-Type";
 
-    /** The Constant JSON Property for TEMP */
-    public static final String JSON_PROP_TEMP = "temp";
-
-    /** The Constant Integer for 5 */
-    public static final int INT_5 = 5;
-
-    /** The Constant Integer for 9 */
-    public static final int INT_9 = 9;
-
-    /** The Constant Integer for 32 */
-    public static final int INT_32 = 32;
+   
 
 }
